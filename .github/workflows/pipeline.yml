@@ -8,7 +8,10 @@ on:
   push:
     branches:
       - main
-      - 'release-*'
+      - develop
+  pull_request:
+    branches:
+      - main
       - develop
   release:
     types: [created]
@@ -20,3 +23,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Write release version
+        run: |
+          echo "VERSION=${{ github.event_name }}" >> $GITHUB_ENV
